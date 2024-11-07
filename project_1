@@ -1,0 +1,98 @@
+"""
+projekt_1.py: první projekt do Engeto Online Python Akademie
+
+author: Jana Veverková
+email: sevcik.jana@gmail.com
+"""
+user = input("Enter your login: ")
+password = input("Enter your password: ")
+reg_uzivatel = {"bob": "123","ann": "pass123", "mike": "password123", "liz": "pass123"}
+print("username: ", user)
+print("password: ", password)
+print("-" * 30)
+if user in reg_uzivatel and reg_uzivatel[user] == password:
+    print(f"Welcome to the app, {user}.\nWe have 3 texts to be analyzed.")
+else:
+    print("Unregistered user, terminating the program.")
+    exit()
+print("-" * 30)
+TEXTS = ['''
+Situated about 10 miles west of Kemmerer,
+Fossil Butte is a ruggedly impressive
+topographic feature that rises sharply
+some 1000 feet above Twin Creek Valley
+to an elevation of more than 7500 feet
+above sea level. The butte is located just
+north of US 30N and the Union Pacific Railroad,
+which traverse the valley. ''',
+'''At the base of Fossil Butte are the bright
+red, purple, yellow and gray beds of the Wasatch
+Formation. Eroded portions of these horizontal
+beds slope gradually upward from the valley floor
+and steepen abruptly. Overlying them and extending
+to the top of the butte are the much steeper
+buff-to-white beds of the Green River Formation,
+which are about 300 feet thick.''',
+'''The monument contains 8198 acres and protects
+a portion of the largest deposit of freshwater fish
+fossils in the world. The richest fossil fish deposits
+are found in multiple limestone layers, which lie some
+100 feet below the top of the butte. The fossils
+represent several varieties of perch, as well as
+other freshwater genera and herring similar to those
+in modern oceans. Other fish such as paddlefish,
+garpike and stingray are also present.'''
+]
+enter = input("Enter a number btw. 1 and 3 to select: ")
+if enter.isdigit():
+    number_text = int(enter)
+    if number_text in [1, 2, 3]:
+        print(f"Selected text number {number_text}:")
+        print(TEXTS[number_text-1])
+    else:
+        print("The number is not correct. Please enter number 1, 2 or 3.")
+else:
+    print("Invalid entry. Please enter the full number.")
+    exit()
+print("-" * 30)
+#počet slov
+words = (TEXTS[number_text-1]).split()
+count_words = len(words)
+print(f"There are {count_words} words in the selected text.")
+#počet slov začínajících velkým písmenem
+count_titlecase = sum(1 for word in words if word[0].isupper())
+print(f"There are {count_titlecase} titlecase words.")
+#počet slov psaných velkými písmeny
+count_uppercase = sum(1 for up in words if up.isupper() and up.isalpha())
+print(f"There are {count_uppercase} uppercase words.")
+#počet slov psaných malými písmeny
+count_lowercase = sum(1 for low in words if low[0].islower())
+print(f"There are {count_lowercase} lowercase words.")
+#počet čísel
+count_number = sum(1 for num in words if num.isnumeric())
+print(f"There are {count_number} numeric strings.")
+#suma čísel
+sum_number = sum(int(n) for n in words if n.isnumeric())
+print(f"The sum of all the numbers are {sum_number}.")
+print("-" * 30)
+#četnost různých délek slov v textu
+lenght_frequency = {}
+for word in words:
+    cleaned_word = ""
+    for char in word:
+        if char.isalpha() or char.isdigit():
+            cleaned_word += char
+    length = len(cleaned_word)
+    if length > 0:
+        if length in lenght_frequency:
+            lenght_frequency[length] += 1
+        else:
+            lenght_frequency[length] = 1
+
+print("LEN|     OCCURENCES    |NR.")
+print("-" * 30)
+for length in sorted(lenght_frequency.keys()):
+    count = lenght_frequency[length]
+    bar = "*" * count
+    print(f"{length:3}|{bar:15}|{count}")
+
