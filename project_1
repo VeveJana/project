@@ -10,7 +10,7 @@ reg_uzivatel = {"bob": "123","ann": "pass123", "mike": "password123", "liz": "pa
 print("username: ", user)
 print("password: ", password)
 print("-" * 30)
-if user in reg_uzivatel and reg_uzivatel[user] == password:
+if reg_uzivatel.get(user) == password:
     print(f"Welcome to the app, {user}.\nWe have 3 texts to be analyzed.")
 else:
     print("Unregistered user, terminating the program.")
@@ -46,11 +46,12 @@ garpike and stingray are also present.'''
 enter = input("Enter a number btw. 1 and 3 to select: ")
 if enter.isdigit():
     number_text = int(enter)
-    if number_text in [1, 2, 3]:
+    if 0 < number_text <= 3:
         print(f"Selected text number {number_text}:")
         print(TEXTS[number_text-1])
     else:
         print("The number is not correct. Please enter number 1, 2 or 3.")
+        exit()
 else:
     print("Invalid entry. Please enter the full number.")
     exit()
@@ -95,4 +96,3 @@ for length in sorted(lenght_frequency.keys()):
     count = lenght_frequency[length]
     bar = "*" * count
     print(f"{length:3}|{bar:15}|{count}")
-
